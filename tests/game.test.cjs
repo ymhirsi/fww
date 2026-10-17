@@ -12,6 +12,8 @@ const ids={};for(const m of fs.readFileSync('index.html','utf8').matchAll(/id="(
 const timers=[],frames=[];
 const context=vm.createContext({document:{getElementById:id=>ids[id],createElementNS:(_,t)=>new Element(t),createElement:t=>new Element(t),addEventListener(){},documentElement:{}},window:{},matchMedia:()=>({matches:false}),requestAnimationFrame:f=>frames.push(f),setTimeout:f=>{timers.push(f);return timers.length},clearTimeout(){},DOMPoint:class{constructor(x,y){this.x=x;this.y=y}matrixTransform(){return this}},console});
 vm.runInContext(fs.readFileSync('game.js','utf8'),context);
+vm.runInContext(fs.readFileSync('places.js','utf8'),context);
+vm.runInContext('startGame()',context);
 const run=s=>vm.runInContext(s,context);
 function tap(label){const g=ids.scene.querySelector(`[aria-label="${label}"]`);assert.ok(g,label);g.events.click({stopPropagation(){}});run('state.x=state.target;tick(last+16)')}
 assert.equal(run('state.room'),'garden');assert.equal(ids.keys.children.length,13);
@@ -33,3 +35,11 @@ tap('Ceiling fan · المروحة');assert.equal(run('state.fan'),true);
 tap('Recline the armchair · الكرسي');assert.equal(run('state.reclined'),true);
 tap('Kitchen');while(timers.length)timers.shift()();assert.equal(run('state.tableSet'),true);
 console.log('PASS: photo-inspired room interactions and retained table state.');
+
+for(const [id,label,field] of [['zoo','Watch the elephant · الفيل','elephant'],['daycare','Paint a picture · نرسم','paint'],['tunis','Knock on the blue door · الباب الأزرق','door'],['dc','Float a paper boat · قارب','boat'],['johnson','Ring the depot bell · الجرس','bell']]){
+ ids.travel.onclick();while(timers.length)timers.shift()();assert.equal(run('state.room'),'map');
+ tap('Visit '+id);while(timers.length)timers.shift()();assert.equal(run('state.room'),id);
+ tap(label);assert.ok(run('outing.'+field));assert.ok(ids.roomName.textContent);assert.ok(ids.arabic.textContent);
+}
+ids.travel.onclick();while(timers.length)timers.shift()();tap('Visit garden');while(timers.length)timers.shift()();assert.equal(run('state.room'),'garden');
+console.log('PASS: all five travel destinations, interactions, bilingual arrivals and return home.');

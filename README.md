@@ -32,3 +32,11 @@ Actual iPhone visual and audio testing is still required: Safari versus Home Scr
 ## Familiar home update
 
 The living room and kitchen now use original vector interpretations of the family's photo references: cream sofa, navy geometric curtains, blue-lit television, brown recliner, ceiling fan, round dining table, high chair, open shelves, white freezer and oak kitchen cabinetry. TV, fan, recliner and table-setting interactions retain state across room changes. A small playable keyboard remains under the TV as a game addition. The reference photos are not included in the public repository. Room layouts are adapted for side-view play rather than exact architectural reproductions.
+
+## Places to explore
+
+The globe button opens a picture map for Home, Zoo, Daycare, Tunis, Washington DC, and Downtown Johnson City. Tap a destination to travel; use the globe to return to the map from any room. These are original storybook interpretations, not geographic maps or representations of a particular zoo/daycare.
+
+Each destination has three activities: zoo animals, daycare painting/train/storybook, Tunis door/mosaics/market, Washington blossoms/boat/flags, and Johnson City bell/music/flowers. English and Arabic captions accompany play. Outing state persists between visits for the current session.
+
+`places.js` contains destination artwork and activities; it loads after `game.js`, then `startGame()` initializes the world. Check both scripts with `node --check`, and run `node tests/game.test.cjs`. The integration checks include all five destinations and returning home. Mobile visual verification remains outstanding.

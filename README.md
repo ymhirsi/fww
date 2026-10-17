@@ -11,7 +11,7 @@ Open https://ymhirsi.github.io/fww/ in landscape. For an app-like full screen on
 - Bedroom: carry Teddy, tuck Teddy in and pick Teddy up again; build and tumble blocks; switch the bedside light.
 - Kitchen: prepare shared fruit snacks and turn on water.
 
-World state lasts for the current session and survives room transitions. Reloading starts fresh. All artwork is original SVG authored in this repository; no Bluey characters or assets are used.
+World state survives room transitions and is saved locally on this device when browser storage is available. All artwork is original SVG authored in this repository; no Bluey characters or assets are used.
 
 ## Development
 
@@ -37,6 +37,19 @@ The living room and kitchen now use original vector interpretations of the famil
 
 The globe button opens a picture map for Home, Zoo, Daycare, Tunis, Washington DC, and Downtown Johnson City. Tap a destination to travel; use the globe to return to the map from any room. These are original storybook interpretations, not geographic maps or representations of a particular zoo/daycare.
 
-Each destination has three activities: zoo animals, daycare painting/train/storybook, Tunis door/mosaics/market, Washington blossoms/boat/flags, and Johnson City bell/music/flowers. English and Arabic captions accompany play. Outing state persists between visits for the current session.
+Each destination has three activities: zoo animals, daycare painting/train/storybook, Tunis door/mosaics/market, Washington blossoms/boat/flags, and Johnson City bell/music/flowers. English and Arabic captions accompany play. Outing state persists between visits and is saved on this device when browser storage is available.
 
 `places.js` contains destination artwork and activities; it loads after `game.js`, then `startGame()` initializes the world. Check both scripts with `node --check`, and run `node tests/game.test.cjs`. The integration checks include all five destinations and returning home. Mobile visual verification remains outstanding.
+
+
+## Playfulness and usability update
+
+- Small glowing dots mark interactive objects; tap Faya to hop.
+- Bubbles in the garden and daycare, a waving daycare friend, and outdoor butterflies.
+- A destination ring shows ground-tap walking targets. Short arm gestures respond to activities.
+- Captions fade after a few seconds so they do not continually cover the scene.
+- The travel button closes the map back to the room and position it was opened from.
+- Whole-stage framing replaces cropping on wide displays. Background color fills the remaining viewport; the illustrated stage maintains its proportions.
+- Local storage saves activities, held Teddy, last room, mute and language. Storage failures and corrupt data are handled without blocking play. No data is transmitted.
+
+`play.js` loads after `places.js` and before initialization. Tests cover the new interactions, map return, save restoration and invalid data. Real-browser/iPhone visual and audio verification is still required.

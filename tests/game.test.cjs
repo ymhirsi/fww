@@ -2,17 +2,18 @@
 const vm=require('node:vm'),fs=require('node:fs'),assert=require('node:assert/strict');
 class Element{
  constructor(tag='div'){this.tag=tag;this.attrs={};this.children=[];this.events={};this.hidden=false;this.style={};this.classList={add(){},remove(){}};}
- setAttribute(k,v){this.attrs[k]=v}append(n){n.parent=this;this.children.push(n)}replaceChildren(){this.children=[]}get childNodes(){return this.children}
- addEventListener(k,f){this.events[k]=f}remove(){if(this.parent)this.parent.children=this.parent.children.filter(c=>c!==this)}focus(){}click(){this.onclick?.()}
+ setAttribute(k,v){this.attrs[k]=v;if(k==='id')ids[v]=this}append(n){n.parent=this;this.children.push(n)}replaceChildren(){this.children=[]}get childNodes(){return this.children}
+ addEventListener(k,f){const old=this.events[k];this.events[k]=old?e=>{old(e);f(e)}:f}remove(){if(this.parent)this.parent.children=this.parent.children.filter(c=>c!==this)}focus(){}click(){this.onclick?.()}
  set innerHTML(s){this.children=[];for(const m of s.matchAll(/id="([^"]+)"/g))ids[m[1]]=new Element()}
  querySelector(s){const label=s.match(/aria-label="([^"]+)"/)?.[1];return this.children.find(n=>n.attrs['aria-label']===label)}
  closest(s){return s==='.object'&&this.attrs.class==='object'?this:null}
 }
 const ids={};for(const m of fs.readFileSync('index.html','utf8').matchAll(/id="([^"]+)"/g))ids[m[1]]=new Element();
-const timers=[],frames=[];
-const context=vm.createContext({document:{getElementById:id=>ids[id],createElementNS:(_,t)=>new Element(t),createElement:t=>new Element(t),addEventListener(){},documentElement:{}},window:{},matchMedia:()=>({matches:false}),requestAnimationFrame:f=>frames.push(f),setTimeout:f=>{timers.push(f);return timers.length},clearTimeout(){},DOMPoint:class{constructor(x,y){this.x=x;this.y=y}matrixTransform(){return this}},console});
+const timers=[],frames=[],saved=new Map();
+const context=vm.createContext({document:{getElementById:id=>ids[id],createElementNS:(_,t)=>new Element(t),createElement:t=>new Element(t),addEventListener(){},documentElement:{}},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},window:{addEventListener(){}},matchMedia:()=>({matches:false}),requestAnimationFrame:f=>frames.push(f),setTimeout:f=>{timers.push(f);return timers.length},clearTimeout(){},DOMPoint:class{constructor(x,y){this.x=x;this.y=y}matrixTransform(){return this}},console});
 vm.runInContext(fs.readFileSync('game.js','utf8'),context);
 vm.runInContext(fs.readFileSync('places.js','utf8'),context);
+vm.runInContext(fs.readFileSync('play.js','utf8'),context);
 vm.runInContext('startGame()',context);
 const run=s=>vm.runInContext(s,context);
 function tap(label){const g=ids.scene.querySelector(`[aria-label="${label}"]`);assert.ok(g,label);g.events.click({stopPropagation(){}});run('state.x=state.target;tick(last+16)')}
@@ -43,3 +44,12 @@ for(const [id,label,field] of [['zoo','Watch the elephant · الفيل','elepha
 }
 ids.travel.onclick();while(timers.length)timers.shift()();tap('Visit garden');while(timers.length)timers.shift()();assert.equal(run('state.room'),'garden');
 console.log('PASS: all five travel destinations, interactions, bilingual arrivals and return home.');
+
+run('state.room="daycare";paint()');tap('Blow bubbles · فقاعات');assert.ok(ids.effects.childNodes.length>0);
+tap('Wave to a friend · مرحباً');assert.ok(run('play.gesture>0'));
+run('hop();tick(last+50)');assert.ok(run('play.jump>0'));assert.ok(!ids.actor.attrs.transform.includes('555'));
+run('state.room="tunis";state.x=440;state.target=440');ids.travel.onclick();while(timers.length)timers.shift()();ids.travel.onclick();while(timers.length)timers.shift()();assert.equal(run('state.room'),'tunis');assert.equal(run('state.x'),440);
+run('state.watered=true;outing.story=2;savePlay();state.watered=false;outing.story=0;restorePlay()');assert.equal(run('state.watered'),true);assert.equal(run('outing.story'),2);
+saved.set('faya-wonder-world-v1','{invalid');assert.doesNotThrow(()=>run('restorePlay()'));
+saved.set('faya-wonder-world-v1',JSON.stringify({version:1,room:'not-a-room',state:{teddy:'bad',language:'xx'},outing:{story:900}}));run('restorePlay()');assert.equal(run('outing.story'),2);assert.equal(run('state.room'),'tunis');
+assert.equal(ids.world.attrs.preserveAspectRatio,'xMidYMid meet');console.log('PASS: bubbles, friend, hop, map round trip, save/restore, invalid-save resilience and complete-stage framing.');

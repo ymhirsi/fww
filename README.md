@@ -28,3 +28,7 @@ The replacement uses a delta-time animation loop, separate facing and world-posi
 ## Remaining device verification
 
 Actual iPhone visual and audio testing is still required: Safari versus Home Screen launch; safe areas and rotate prompt; tap alignment at screen edges; rapid destination changes; all doors; piano latency and simultaneous touches; Arabic voice availability; returning after phone lock. A browser preview was unavailable during implementation. This is a more complete playable foundation, not a claim of console-game production polish.
+
+## Familiar home update
+
+The living room and kitchen now use original vector interpretations of the family's photo references: cream sofa, navy geometric curtains, blue-lit television, brown recliner, ceiling fan, round dining table, high chair, open shelves, white freezer and oak kitchen cabinetry. TV, fan, recliner and table-setting interactions retain state across room changes. A small playable keyboard remains under the TV as a game addition. The reference photos are not included in the public repository. Room layouts are adapted for side-view play rather than exact architectural reproductions.

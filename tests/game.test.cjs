@@ -26,3 +26,10 @@ run('state.pending=()=>{throw Error("stale action")};state.x=300;state.target=30
 run('tick(last+50)');assert.ok(run('state.x>300&&state.x<=313'));
 ids.language.onclick();assert.equal(run('state.language'),'ar');ids.sound.onclick();assert.equal(run('state.muted'),true);
 console.log('PASS: startup, 13 piano keys, flower state, doors, piano, Teddy cycle, blocks cycle, fruit, cancelled action, bounded movement, language and mute.');
+tap('Set the family table · الطاولة');assert.equal(run('state.tableSet'),true);
+tap('Living room');while(timers.length)timers.shift()();
+tap('Blue television light · التلفاز');assert.equal(run('state.tv'),true);
+tap('Ceiling fan · المروحة');assert.equal(run('state.fan'),true);
+tap('Recline the armchair · الكرسي');assert.equal(run('state.reclined'),true);
+tap('Kitchen');while(timers.length)timers.shift()();assert.equal(run('state.tableSet'),true);
+console.log('PASS: photo-inspired room interactions and retained table state.');

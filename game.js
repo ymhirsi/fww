@@ -69,7 +69,42 @@ function kitchen(){interior('#eee9db');homeFloor();curtains(280,146,130,206,true
  path('M563 35v89','none','#8d8170',3);path('M563 122q-28-25-40 14m40-14q28-25 40 14','none','#8d8170',4);for(const x of [524,563,602])path(`M${x-10} 134h20l12 28h-44Z`,'#faf2df','#c6bba4',2);
  door(185,'Living room','غرفة الجلوس','living');}
 function paint(){scene.replaceChildren();({garden,living,bedroom,kitchen})[state.room]();}
-function buildActor(){actor.innerHTML='<ellipse cy="4" rx="30" ry="8" fill="#574465" opacity=".18"/><g id="body"><g id="leftLeg"><path d="M-11 -22v22h-9" fill="none" stroke="#6b4d82" stroke-width="12" stroke-linecap="round"/></g><g id="rightLeg"><path d="M11 -22v22h9" fill="none" stroke="#6b4d82" stroke-width="12" stroke-linecap="round"/></g><path d="M-22 -66Q0 -77 22 -66L26 -24Q0 -14-26 -24Z" fill="#a678c5"/><path d="M-9 -53L0 -44 9 -53" fill="none" stroke="#d7b7e8" stroke-width="3"/><path id="arms" d="M-23 -61L-31 -34M23 -61L31 -34" stroke="#c58a68" stroke-width="11" stroke-linecap="round"/><circle cy="-97" r="30" fill="#49342f"/><circle cx="-26" cy="-111" r="15" fill="#49342f"/><circle cx="26" cy="-111" r="15" fill="#49342f"/><path d="M-29 -112l9-5m40 0 9 5" stroke="#c0a0e0" stroke-width="6"/><ellipse cy="-91" rx="25" ry="27" fill="#ce9675"/><path d="M-25 -102q15-25 36-10l14 14q-15-4-26-15-11 13-24 11" fill="#49342f"/><ellipse cx="-9" cy="-93" rx="3" ry="4" fill="#3f3034"/><ellipse cx="10" cy="-93" rx="3" ry="4" fill="#3f3034"/><path d="M-7 -80q8 8 15-1" fill="none" stroke="#864c51" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="-17" cy="-83" rx="5" ry="3" fill="#da9b8a"/><ellipse cx="18" cy="-83" rx="5" ry="3" fill="#da9b8a"/><g id="carried"></g></g>';}
+function buildActor(){
+actor.innerHTML=`<ellipse cy="4" rx="29" ry="7" fill="#574465" opacity=".18"/>
+<g id="body">
+<g id="leftLeg"><path d="M-10 -28L-12 -5" stroke="#d6a27f" stroke-width="10" stroke-linecap="round"/><path d="M-12 -9v9" stroke="#f2ede2" stroke-width="11"/><path d="M-18 -4q-10 2-8 8h23V-3Z" fill="#a7b2b0"/><path d="M-25 4h23" stroke="#f7e9d3" stroke-width="3" stroke-linecap="round"/><path d="M-17 -2l8 3m-7-6 7 3" stroke="#fff6e5" stroke-width="1.5"/><path d="M-23 0l4 2" stroke="#c9798b" stroke-width="3"/></g>
+<g id="rightLeg"><path d="M10 -28L12 -5" stroke="#d6a27f" stroke-width="10" stroke-linecap="round"/><path d="M12 -9v9" stroke="#f2ede2" stroke-width="11"/><path d="M7 -4v8h23q1-7-10-8Z" fill="#a7b2b0"/><path d="M6 4h24" stroke="#f7e9d3" stroke-width="3" stroke-linecap="round"/><path d="M12 -2l8 3m-8-6 7 3" stroke="#fff6e5" stroke-width="1.5"/><path d="M23 0l4 2" stroke="#c9798b" stroke-width="3"/></g>
+<path d="M-21 -44h42l7 19q-7 7-14 3-7 5-14 1-8 4-15 0-8 3-13-2Z" fill="#3f484a"/><path d="M-14 -40l-3 15m17-15v16m14-16 4 15" fill="none" stroke="#556062" stroke-width="2"/>
+<path id="arms" d="M-23 -64L-30 -36M23 -64L32 -36" fill="none" stroke="#d6a27f" stroke-width="9" stroke-linecap="round"/>
+<path d="M-9 -77q-7 0-17 8l-5 14 12 4 1-7-2 18q19 7 40 0l-2-18 2 7 12-4-6-14q-10-8-17-8Z" fill="#f7f0df"/>
+<path d="M-9 -77q9 12 18 0" fill="#d6a27f" stroke="#e4dac9" stroke-width="1"/>
+<g id="shirtFlowers"></g>
+<path d="M-25 -105q-17 7-12 25-7 8 3 15 7 9 16 1l11-36M25 -105q17 7 12 25 7 8-3 15-7 9-16 1l-11-36" fill="#4b382e"/>
+<ellipse cy="-98" rx="29" ry="30" fill="#46332b"/>
+<g id="curls"></g>
+<ellipse cy="-91" rx="24" ry="26" fill="#dba986"/>
+<ellipse cx="-24" cy="-89" rx="4" ry="7" fill="#dba986"/><ellipse cx="24" cy="-89" rx="4" ry="7" fill="#dba986"/>
+<path d="M-25 -98q-5-21 14-25 9-10 24 0 15 4 14 24-12-3-14-17-3 11-14 9 3-5 1-8-9 15-25 17Z" fill="#46332b"/>
+<path d="M-23 -110q5-11 12-6m5-4q9-6 15 2m7 5q6 4 6 10" fill="none" stroke="#6b5040" stroke-width="2" stroke-linecap="round"/>
+<path d="M-29 -110l-5-5m5 4-1-7M28 -111l5-5m-4 5 2-7" stroke="#eac85e" stroke-width="4" stroke-linecap="round"/>
+<path d="M-15 -98q5-3 10-1m11 0q5-3 10-1" fill="none" stroke="#71503b" stroke-width="1.7" stroke-linecap="round"/>
+<ellipse cx="-9" cy="-93" rx="3.2" ry="3.5" fill="#49382c"/><ellipse cx="11" cy="-93" rx="3.2" ry="3.5" fill="#49382c"/>
+<circle cx="-8" cy="-94" r="1" fill="#fff4e3"/><circle cx="12" cy="-94" r="1" fill="#fff4e3"/>
+<path d="M1 -91l-2 5 4 1" fill="none" stroke="#bf896a" stroke-width="1.5" stroke-linecap="round"/>
+<ellipse cx="-16" cy="-83" rx="5" ry="3" fill="#dda08b"/><ellipse cx="18" cy="-83" rx="5" ry="3" fill="#dda08b"/>
+<path d="M-9 -81q11 5 21-2-3 15-13 10-5-2-8-8Z" fill="#985958"/><path d="M-6 -80q8 2 15-1l-1 4q-8 3-13 0Z" fill="#fff6e9"/>
+<g id="carried"></g></g>`;
+// Small painted flowers stay readable at phone scale.
+for(const [x,y,c] of [[-18,-64,'#c98591'],[-7,-59,'#b294bd'],[12,-64,'#db929d'],[21,-59,'#a4b3c3'],[-11,-46,'#cf8b9e'],[5,-49,'#a1b7a3'],[14,-43,'#c6a4be'],[-1,-68,'#d8b66c']]){
+ for(let i=0;i<5;i++)oval(x+Math.cos(i*1.257)*2,y+Math.sin(i*1.257)*2,1.7,1.7,c,$('shirtFlowers'));
+ oval(x,y,1.2,1.2,'#e9c772',$('shirtFlowers'));path(`M${x} ${y+3}l2 4`,'none','#87a48c',1,$('shirtFlowers'));
+}
+for(const side of [-1,1])for(let i=0;i<7;i++){
+ const x=side*(29+Math.sin(i*1.8)*4),y=-113+i*7;
+ oval(x,y,7,8,i%2?'#513c30':'#46332b',$('curls'));
+ path(`M${x-2} ${y-3}q6-3 5 3`,'none','#725442',1.3,$('curls'));
+}
+}
 function go(room,entry){if(state.transition)return;state.transition=true;state.pending=null;state.target=state.x;$('piano').hidden=true;if('speechSynthesis'in window)speechSynthesis.cancel();$('curtain').classList.add('closed');setTimeout(()=>{state.room=room;state.x=state.target=entry;paint();$('roomName').textContent={garden:'The garden',living:'Our living room',bedroom:'Faya’s bedroom',kitchen:'The kitchen'}[room];say({garden:'Fresh air and little discoveries.',living:'There’s music in this house.',bedroom:'A place to play and dream.',kitchen:'Let’s make something together.'}[room],{garden:'هواء نقي واكتشافات صغيرة.',living:'في بيتنا موسيقى.',bedroom:'هنا نلعب ونحلم.',kitchen:'لنحضّر شيئاً معاً.'}[room]);$('curtain').classList.remove('closed');state.transition=false;},reduced?0:240)}
 function tick(t){const dt=Math.min((t-last)/1000||0,.05);last=t;time+=dt;const delta=state.target-state.x,moving=Math.abs(delta)>.5;if(moving){state.facing=Math.sign(delta);state.x+=Math.sign(delta)*Math.min(Math.abs(delta),dt*260)}else if(state.pending&&!state.transition){const action=state.pending;state.pending=null;action()}
 if(state.room==='living'&&state.fan&&!reduced)$('fanBlades')?.setAttribute('transform',`rotate(${time*100} 713 67)`);
